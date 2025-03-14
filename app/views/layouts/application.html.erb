@@ -7,14 +7,13 @@
       <%= csp_meta_tag %>
       <%= yield :head %>
       <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+      <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+      <%= javascript_include_tag "chartkick" %>
       <%= javascript_importmap_tags %>
   </head>
-
   <body class="min-h-screen flex flex-row bg-gray-50">
-    <aside class="w-1/4 bg-gray-100 p-4 flex-col items-start">
-
+    <aside class="w-1/4 bg-gray-50 p-4 flex-col items-start">
       <% if user_signed_in? %>
-
         <h1 class="text-2xl font-bold">Welcome, <%= current_user.email %>!</h1>
         <div class="mt-6 flex-row space-x-6">
           <%= link_to 'Logout', destroy_user_session_path,
@@ -29,14 +28,11 @@
                       method: :delete,
                       class: "inline-flex items-center bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"%>
         </div>
-
     <% else %>
     <% end %>
     </aside>
-    <main class="w-2/3 p-4">
-      <div class="max-w-3xl mx-auto">
-        <%= yield %>
-      </div>
+    <main class="p-4 flex flex-row w-full">
+      <%= yield %>
     </main>
   </body>
 </html>

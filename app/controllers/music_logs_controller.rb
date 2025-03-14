@@ -11,6 +11,7 @@ class MusicLogsController < ApplicationController
   # Lists all music logs belonging to current user in descending order
   def index
     @music_logs = current_user.music_logs.order(date: :desc)
+    @genre_distribution = current_user.music_logs.group(:genre).count
 
     if params[:filter].present?
       case params[:filter]
@@ -69,18 +70,18 @@ class MusicLogsController < ApplicationController
     pdf.move_down 20
 
     # Define table headers
-    table_data = [["Song", "Artist", "Date", "Mood", "Notes"]]
+    table_data = [ %w[Song Artist Genre Mood Notes Date] ]
 
     # Populate table rows
     @music_logs.each do |log|
-      table_data << [log.song_name, log.artist, log.date.to_s, log.mood, log.notes]
+      table_data << [ log.song_name, log.artist, log.genre, log.mood, log.notes, log.date.to_s ]
     end
 
     # Draw table with styling
     pdf.table(table_data,
               header: true,
               width: pdf.bounds.width,
-              row_colors: ["F0F0F0", "FFFFFF"], # Alternating row colors
+              row_colors: %w[F0F0F0 FFFFFF], # Alternating row colors
               cell_style: { border_width: 1, padding: 8, size: 12, align: :left }
     )
 
@@ -111,6 +112,6 @@ class MusicLogsController < ApplicationController
 
   # Only allowed fields can be set via assignment
   def music_log_params
-    params.require(:music_log).permit(:date, :song_name, :artist, :mood, :notes, :status)
+    params.require(:music_log).permit(:date, :song_name, :artist, :mood, :notes, :status, :genre)
   end
 end

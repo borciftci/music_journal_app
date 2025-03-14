@@ -51,6 +51,7 @@
     <orderEntry type="library" scope="PROVIDED" name="brakeman (v7.0.0, ruby-3.4.2-p28) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.3.0, ruby-3.4.2-p28) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.6.5, ruby-3.4.2-p28) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="chartkick (v5.1.4, ruby-3.4.2-p28) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.3.5, ruby-3.4.2-p28) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="connection_pool (v2.5.0, ruby-3.4.2-p28) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, ruby-3.4.2-p28) [gem]" level="application" />

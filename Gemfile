@@ -69,3 +69,5 @@ end
 
 
 gem "tailwindcss-ruby", "~> 4.0"
+
+gem "chartkick", "~> 5.1"

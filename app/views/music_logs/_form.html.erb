@@ -14,6 +14,12 @@
   </div>
 
   <div class="mb-4">
+    <%= f.label :genre, "Select Genre", class: "block font-semibold" %>
+    <%= f.select :genre, MusicLog::GENRES, {}, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div class="mb-4">
     <%= f.label :mood, class: "block font-semibold" %>
     <%= f.text_field :mood, class: "border-2 border-gray-300 rounded p-2 w-full
                                         focus:outline-none focus:border-blue-500" %>
@@ -24,6 +30,7 @@
     <%= f.text_area :notes, rows: 5, class: "border-2 border-gray-300 rounded p-2 w-full
                                         focus:outline-none focus:border-blue-500" %>
   </div>
+
 
   <div class="mb-4">
     <%= f.label :date, class: "block font-semibold" %>
