@@ -1,0 +1,38 @@
+<!-- app/views/music_logs/index.html.erb -->
+
+<h1 class="text-2xl font-bold">My Music Logs</h1>
+
+<!-- Date Filter Buttons -->
+<div class="mt-4 mb-6 flex space-x-4">
+  <%= link_to "Today", music_logs_path(filter: "today"),
+              class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+  <%= link_to "Last Week", music_logs_path(filter: "last_week"),
+              class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+  <%= link_to "Last Month", music_logs_path(filter: "last_month"),
+              class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
+
+</div>
+
+<!-- Display the logs -->
+<div class="mt-6 space-y-3 pr-2
+            max-h-[calc(100vh-8rem)]
+            overflow-y-auto">
+  <% @music_logs.each do |log| %>
+    <div class="border shadow-lg p-4 bg-gray-100 rounded-md">
+      <p><strong>Song:</strong> <%= log.song_name %></p>
+      <p><strong>Artist:</strong> <%= log.artist %></p>
+      <p><strong>Date:</strong> <%= log.date %></p>
+      <p><strong>Mood:</strong> <%= log.mood %></p>
+      <p><strong>Notes:</strong> <%= log.notes %></p>
+
+      <%= link_to 'Edit', edit_music_log_path(log),
+                  class: "inline-flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 font-bold rounded" %>
+      <%= link_to 'Delete', music_log_path(log),
+                  data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?" },
+                  class: "inline-flex items-center bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+</div>
+

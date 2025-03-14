@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "Music Journal App Test" %></title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <%= csrf_meta_tags %>
+      <%= csp_meta_tag %>
+      <%= yield :head %>
+      <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+      <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="min-h-screen flex flex-row bg-gray-50">
+    <aside class="w-1/4 bg-gray-100 p-4 flex-col items-start">
+
+      <% if user_signed_in? %>
+
+        <h1 class="text-2xl font-bold">Welcome, <%= current_user.email %>!</h1>
+        <div class="mt-6 flex-row space-x-6">
+          <%= link_to 'Logout', destroy_user_session_path,
+                      method: :delete,
+                      data: { turbo_method: :delete },
+                      class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"%>
+          <%= link_to 'New Music Log', new_music_log_path,
+                      class: "inline-flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="mt-6 flex-row space-x-6">
+          <%= link_to 'Export Music Log', export_pdf_music_logs_path,
+                      method: :delete,
+                      class: "inline-flex items-center bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"%>
+        </div>
+
+    <% else %>
+    <% end %>
+    </aside>
+    <main class="w-2/3 p-4">
+      <div class="max-w-3xl mx-auto">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

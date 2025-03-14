@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= content_for(:title) || "Music Journal - Authentication" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gray-50">
+<div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+  <%= yield %>
+</div>
+</body>
+</html>

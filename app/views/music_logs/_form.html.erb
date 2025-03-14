@@ -1,0 +1,37 @@
+<!-- app/views/music_logs/_form.html.erb -->
+
+<%= form_with(model: music_log, local: true) do |f| %>
+  <div class="mb-4">
+    <%= f.label :song_name, class: "block font-semibold" %>
+    <%= f.text_field :song_name, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :artist, class: "block font-semibold" %>
+    <%= f.text_field :artist, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :mood, class: "block font-semibold" %>
+    <%= f.text_field :mood, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :notes, class: "block font-semibold" %>
+    <%= f.text_area :notes, rows: 5, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :date, class: "block font-semibold" %>
+    <%= f.date_field :date, class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+  </div>
+
+  <div>
+    <%= f.submit "Save", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+<% end %>
