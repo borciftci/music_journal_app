@@ -1,0 +1,12 @@
+<h2 class="text-xl font-bold mb-4">Friends' Favorite Songs</h2>
+
+<% if @friends_favorites.any? %>
+  <% @friends_favorites.each do |log| %>
+    <div class="p-4 border rounded-lg bg-gray-100 shadow mb-2">
+      <p><strong><%= log.user.username %></strong> favorited:</p>
+      <p class="text-lg font-bold"><%= log.song_name %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p class="text-gray-600">No friends have selected a favorite song yet.</p>
+<% end %>

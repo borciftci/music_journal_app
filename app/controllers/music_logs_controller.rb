@@ -28,6 +28,16 @@ class MusicLogsController < ApplicationController
     end
   end
 
+  def favorite
+    @music_log = current_user.music_logs.find(params[:id])
+
+    current_user.music_logs.update_all(favorite: false)
+
+    @music_log.update(favorite: true)
+    redirect_to music_logs_path, notice: "Favorite song updated!"
+
+  end
+
   # GET /music_logs/:id
   def show
     redirect_to music_logs_path
