@@ -25,7 +25,7 @@ gem "prawn"
 
 gem "prawn-table"
 
-gem 'cssbundling-rails'
+gem "cssbundling-rails"
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
@@ -57,7 +57,7 @@ group :development, :test do
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
   gem "brakeman", require: false
-
+  gem "rubocop"
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 end

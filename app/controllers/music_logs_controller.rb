@@ -1,11 +1,11 @@
-require 'prawn'
-require 'prawn/table'
+require "prawn"
+require "prawn/table"
 
 class MusicLogsController < ApplicationController
   # Only authenticated users can access actions in the controller
   before_action :authenticate_user!
   # loads a musiclog for the specified actions
-  before_action :set_music_log, only: [:show, :edit, :update, :destroy]
+  before_action :set_music_log, only: [ :show, :edit, :update, :destroy ]
 
   # GET /music_logs
   # Lists all music logs belonging to current user in descending order
