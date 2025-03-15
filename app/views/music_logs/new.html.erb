@@ -1,6 +1,8 @@
 <!-- app/views/music_logs/new.html.erb -->
+<div class="w-2/3">
+  <h1 class="text-2xl font-bold mb-4">Add a New Music Log</h1>
 
-<h1 class="text-2xl font-bold mb-4">Add a New Music Log</h1>
+  <!-- Render the shared form partial -->
+  <%= render 'form', music_log: @music_log %>
+</div>
 
-<!-- Render the shared form partial -->
-<%= render 'form', music_log: @music_log %>
