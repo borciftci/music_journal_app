@@ -39,6 +39,10 @@ jobs:
       # install dependencies
       - name: Install dependencies
         run: bundle install --jobs 4 --retry 3
+
+      - name: Fix bin/rails permissions
+        run: chmod +x bin/rails
+
       # Setup database
       - name: Prepare database
         run: |
@@ -60,7 +64,7 @@ jobs:
           ruby-version: 3.2.2
           bundler-cache: true
       - name: Generate binstubs
-        run: bundle binstubs bundler-audit brakeman rubocop
+        run: bundle binstubs brakeman rubocop
 
       # Add or replace any other lints here
 
