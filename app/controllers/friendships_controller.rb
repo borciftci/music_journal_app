@@ -16,5 +16,4 @@ class FriendshipsController < ApplicationController
     current_user.friends.delete(friend)
     redirect_to users_path, notice: "You are no longer friends with #{friend.username}"
   end
-
 end

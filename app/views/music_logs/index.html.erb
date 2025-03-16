@@ -5,7 +5,7 @@
     <h1 class="text-2xl font-bold">Your Music Logs</h1>
     <!-- Date Filter Buttons -->
     <div class="mt-6 flex items-center space-x-4">
-      <div class="border rounded-lg p-2 flex space-x-2">
+      <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
         <%= link_to "Today", music_logs_path(filter: "today"),
                     class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
         <%= link_to "Last Week", music_logs_path(filter: "last_week"),
@@ -13,12 +13,14 @@
         <%= link_to "Last Month", music_logs_path(filter: "last_month"),
                     class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
       </div>
-      <%= link_to 'New Music Log', new_music_log_path,
-                  class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+      <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+        <%= link_to 'New Music Log', new_music_log_path,
+                    class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
 
-      <%= link_to 'Export Music Log', export_pdf_music_logs_path,
-                  method: :delete,
-                  class: "bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"%>
+        <%= link_to 'Export Music Log', export_pdf_music_logs_path,
+                    method: :delete,
+                    class: "bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"%>
+      </div>
      </div>
 
 
@@ -34,40 +36,45 @@
       <% else %>
         <% @music_logs.each do |log| %>
           <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
-            <!-- Favorite Icon -->
-            <%= link_to favorite_music_log_path(log),
-                        method: :patch,
-                        data: {
-                          turbo_method: :patch
-                        },
-                        class: "top-2 right-2 text-gray-400 hover:text-red-500" do %>
-              <% if log.favorite %>
-                ❤️
-              <% else %>
-                🤍
-              <% end %>
-            <% end %>
+            <div class="flex justify-between">
+              <div>
+                <h2 class="text-xl font-bold text-gray-900"> <%= log.song_name %></h2>
+                <p class="text-gray-700 text-md italic">
+                  <span class="text-gray-600">by</span>
+                  <span class="font-semibold text-gray-900"><%= log.artist %></span>
+                </p>
+                <div class="mt-3 text-sm text-gray-800">
+                  <p><strong>Genre:</strong> <%= log.genre %></p>
+                  <p><strong>Mood:</strong> <%= log.mood %></p>
+                  <p><strong>Notes:</strong> <%= log.notes %></p>
+                  <p class="text-gray-500 text-xs mt-2">Listened on <%= log.date %></p>
+                </div>
 
-            <h2 class="text-xl font-bold text-gray-900"> <%= log.song_name %></h2>
-            <p class="text-gray-700 text-md italic">
-              <span class="text-gray-600">by</span>
-              <span class="font-semibold text-gray-900"><%= log.artist %></span>
-            </p>
-            <div class="mt-3 text-sm text-gray-800">
-              <p><strong>Genre:</strong> <%= log.genre %></p>
-              <p><strong>Mood:</strong> <%= log.mood %></p>
-              <p><strong>Notes:</strong> <%= log.notes %></p>
-              <p class="text-gray-500 text-xs mt-2">Listened on <%= log.date %></p>
-            </div>
-
-            <div class="mt-6 space-y-3 pr-2">
-              <%= link_to 'Edit', edit_music_log_path(log),
-                          class: "inline-flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 font-bold rounded" %>
-              <%= link_to 'Delete', music_log_path(log),
-                          data: {
-                            turbo_method: :delete,
-                            turbo_confirm: "Are you sure?" },
-                          class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+                <div class="mt-6 space-y-3 pr-2">
+                  <%= link_to 'Edit', edit_music_log_path(log),
+                              class: "inline-flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 font-bold rounded" %>
+                  <%= link_to 'Delete', music_log_path(log),
+                              data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "Are you sure?" },
+                              class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+                </div>
+              </div>
+              <div>
+                <!-- Favorite Icon -->
+                <%= link_to favorite_music_log_path(log),
+                            method: :patch,
+                            data: {
+                              turbo_method: :patch
+                            },
+                            class: "text-gray-400 hover:text-red-500" do %>
+                  <% if log.favorite %>
+                    ❤️
+                  <% else %>
+                    🤍
+                  <% end %>
+                <% end %>
+              </div>
             </div>
           </div>
       <% end %>
@@ -82,16 +89,18 @@
           <p class="text-gray-700 text-lg">Add music logs to show your genre distribution.</p>
         </div>
       <% else %>
-        <%= pie_chart @genre_distribution,
-                      library: {
-                        backgroundColor: "",
-                        chartArea: {width: "70%", height: "70%"},
-                        legend: {position: "bottom", textStyle: {color: "black", fontSize: 14}},
-                        pieSliceBorderColor: "white",
-                        colors: ["#e63946", "#f4a261", "#2a9d8f", "#264653", "#a8dadc"] # Custom colors for pie slices
-                      },
-                      donut: true
-        %>
+        <div class="relative border mt-6 flex items-center space-x-4 shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+          <%= pie_chart @genre_distribution,
+                        library: {
+                          backgroundColor: "",
+                          chartArea: {width: "70%", height: "70%"},
+                          legend: {position: "bottom", textStyle: {color: "black", fontSize: 14}},
+                          pieSliceBorderColor: "white",
+                          colors: ["#e63946", "#f4a261", "#2a9d8f", "#264653", "#a8dadc"] # Custom colors for pie slices
+                        },
+                        donut: true
+          %>
+        </div>
       <% end %>
     <% end %>
     </div>

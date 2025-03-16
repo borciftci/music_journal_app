@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :friends, through: :friendships, source: :friend
 
-  has_one :favorite_song,class_name: "MusicLog", foreign_key: "favorite_song_id"
+  has_one :favorite_song, class_name: "MusicLog", foreign_key: "favorite_song_id"
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 

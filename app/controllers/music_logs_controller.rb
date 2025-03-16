@@ -35,7 +35,6 @@ class MusicLogsController < ApplicationController
 
     @music_log.update(favorite: true)
     redirect_to music_logs_path, notice: "Favorite song updated!"
-
   end
 
   # GET /music_logs/:id
