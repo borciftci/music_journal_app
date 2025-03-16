@@ -30,11 +30,14 @@ class MusicLogsController < ApplicationController
 
   def favorite
     @music_log = current_user.music_logs.find(params[:id])
-
-    current_user.music_logs.update_all(favorite: false)
-
-    @music_log.update(favorite: true)
-    redirect_to music_logs_path, notice: "Favorite song updated!"
+    if current_user.favorite_song_id == @music_log.id
+      current_user.update(favorite_song_id: nil)
+      message = "Favorite song removed"
+    else
+      current_user.update(favorite_song_id: @music_log.id)
+      message = "Favorite song updated"
+    end
+    redirect_to music_logs_path, notice: message
   end
 
   # GET /music_logs/:id

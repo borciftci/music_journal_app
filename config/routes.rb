@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :friendships, only: [ :create, :destroy ]
+  resources :friendships, only: [ :create, :destroy ] do
+    member do
+      patch :accept
+      patch :decline
+    end
+  end
 
   resources :music_logs do
     collection do

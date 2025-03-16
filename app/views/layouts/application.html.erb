@@ -14,7 +14,7 @@
   <body class="min-h-screen flex flex-row bg-blue-100">
     <aside class="w-1/4 bg-blue-100 p-4 flex-col items-start">
       <% if user_signed_in? %>
-        <h1 class="text-2xl font-bold">Welcome, <%= current_user.username.present? || current_user.email %>!</h1>
+        <h1 class="text-2xl font-bold">Welcome, <%= current_user.username || current_user.email %>!</h1>
         <div class="mt-6 flex-row space-x-6">
           <%= link_to 'Logout', destroy_user_session_path,
                       method: :delete,

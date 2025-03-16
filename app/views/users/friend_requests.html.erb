@@ -1,0 +1,8 @@
+<h2>Friend Requests</h2>
+<% @user.pending_friendships.each do |request| %>
+  <div>
+    <p><%= request.user.username %> wants to be your friend</p>
+    <%= button_to "Accept", accept_friendship_path(request), method: :patch, class: "btn btn-success" %>
+    <%= button_to "Decline", decline_friendship_path(request), method: :patch, class: "btn btn-danger" %>
+  </div>
+<% end %>

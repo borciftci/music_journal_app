@@ -5,9 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :music_logs, dependent: :destroy
   has_many :friendships
-  has_many :friends, through: :friendships, source: :friend
+  has_many :pending_friendships, -> { where status: "pending" }, class_name: "Friendship", foreign_key: "friend_id"
+  has_many :friends, -> { where(friendships: { status: "accepted" }) }, through: :friendships, source: :friend
 
-  has_one :favorite_song, class_name: "MusicLog", foreign_key: "favorite_song_id"
+  has_one :favorite_song, class_name: "MusicLog", primary_key: "favorite_song_id", foreign_key: "id", required: false
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 

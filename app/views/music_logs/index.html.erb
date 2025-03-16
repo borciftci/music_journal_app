@@ -68,7 +68,7 @@
                               turbo_method: :patch
                             },
                             class: "text-gray-400 hover:text-red-500" do %>
-                  <% if log.favorite %>
+                  <% if current_user.favorite_song_id == log.id %>
                     ❤️
                   <% else %>
                     🤍
