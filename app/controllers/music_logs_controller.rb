@@ -11,21 +11,21 @@ class MusicLogsController < ApplicationController
   # Lists all music logs belonging to current user in descending order
   def index
     @music_logs = current_user.music_logs.order(date: :desc)
-    @genre_distribution = current_user.music_logs.group(:genre).count
 
     if params[:filter].present?
       case params[:filter]
       when "today"
         @music_logs = @music_logs.where(date: Date.today)
       when "last_week"
-        @music_logs = @music_logs.where(date: Date.today.beginning_of_week..Date.today.end_of_week)
+        @music_logs = @music_logs.where(date: 1.week.ago.to_date..Date.today)
       when "last_month"
-        @music_logs = @music_logs.where(date: Date.today.beginning_of_month..Date.today.end_of_month)
+        @music_logs = @music_logs.where(date: 1.month.ago.to_date..Date.today)
       else
         flash[:alert] = "Invalid filter"
         redirect_to music_logs_path
       end
     end
+    @genre_distribution = current_user.music_logs.group(:genre).count
   end
 
   def favorite
@@ -76,6 +76,19 @@ class MusicLogsController < ApplicationController
 
   def export_pdf
     @music_logs = current_user.music_logs.order(date: :desc)
+
+    if params[:filter].present?
+      case params[:filter]
+      when "today"
+        @music_logs = @music_logs.where(date: Date.today)
+      when "last_week"
+        @music_logs = @music_logs.where(date: 1.week.ago.to_date..Date.today)
+      when "last_month"
+        @music_logs = @music_logs.where(date: 1.month.ago.to_date..Date.today)
+      else
+        flash[:alert] = "Invalid filter"
+      end
+    end
 
     pdf = Prawn::Document.new
     pdf.text "Music Logs", size: 24, style: :bold, align: :center

@@ -1,7 +1,0 @@
-<h2>Friends</h2>
-<% @user.friends.each do |friend| %>
-  <div>
-    <p><%= friend.username %></p>
-    <%= button_to "Remove Friend", friendship_path(friend), method: :delete, class: "btn btn-warning" %>
-  </div>
-<% end %>

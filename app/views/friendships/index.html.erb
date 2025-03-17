@@ -1,0 +1,57 @@
+<div class="flex-col items-start">
+
+  <h1 class="text-2xl font-bold">Friends</h1>
+  <div class="mt-6 flex-row space-x-6">
+    <%= link_to "Add Friend", new_friendship_path, class: "inline-flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+  </div>
+  <!-- Pending Friend Requests -->
+  <div class="mt-6 flex-col space-x-6">
+    <h2 class="text-lg font-bold">Pending Friend Requests</h2>
+    <% if current_user.pending_friendships.any? %>
+      <% current_user.pending_friendships.each do |request| %>
+        <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+          <p><strong><%= request.user.username %></strong> wants to be your friend.</p>
+          <div class="mt-6 flex space-x-6">
+            <%= button_to "Accept", accept_friendship_path(request), method: :patch, class: "inline-flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 font-bold rounded" %>
+            <%= button_to "Decline", decline_friendship_path(request), method: :patch, class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-gray-600">No pending requests.</p>
+    <% end %>
+  </div>
+
+  <!-- Friends List -->
+  <div class="mt-6 flex-col space-x-6">
+    <h2 class="text-lg font-bold">Your Friends</h2>
+    <% if current_user.friends.any? %>
+      <% current_user.friends.each do |friend| %>
+        <div class="relative flex border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+          <p class="text-xl inline-flex items-center font-bold py-2 px-4 rounded"><%= friend.username %></p>
+          <%= link_to "Remove Friend", friendship_path(friend),
+                      method: :delete,
+                      data: { turbo_method: :delete },
+                      class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-gray-600">You have no friends yet.</p>
+    <% end %>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleButton = document.getElementById("toggle-friend-form");
+        const formContainer = document.getElementById("friend-form-container");
+
+        if (toggleButton && formContainer) {
+            toggleButton.addEventListener("click", function () {
+                formContainer.classList.toggle("hidden");
+            });
+        }
+    });
+</script>
+

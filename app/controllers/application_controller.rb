@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   layout :determine_layout
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
+  before_action :set_friends_favorites
 
   private
 
@@ -11,6 +13,14 @@ class ApplicationController < ActionController::Base
       "devise"
     else
       "application"
+    end
+  end
+
+  def set_friends_favorites
+    if user_signed_in?
+      @friends_favorites = current_user.friends.includes(:favorite_song).where.not(favorite_song_id: nil)
+    else
+      @friends_favorites = []
     end
   end
 

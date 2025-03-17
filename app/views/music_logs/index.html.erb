@@ -6,14 +6,6 @@
     <!-- Date Filter Buttons -->
     <div class="mt-6 flex items-center space-x-4">
       <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
-        <%= link_to "Today", music_logs_path(filter: "today"),
-                    class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-        <%= link_to "Last Week", music_logs_path(filter: "last_week"),
-                    class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
-        <%= link_to "Last Month", music_logs_path(filter: "last_month"),
-                    class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
-      </div>
-      <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
         <%= link_to 'New Music Log', new_music_log_path,
                     class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
 
@@ -21,6 +13,15 @@
                     method: :delete,
                     class: "bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded"%>
       </div>
+      <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+        <%= link_to "Today", music_logs_path(filter: "today"),
+                    class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        <%= link_to "Last Week", music_logs_path(filter: "last_week"),
+                    class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+        <%= link_to "Last Month", music_logs_path(filter: "last_month"),
+                    class: "bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" %>
+      </div>
+
      </div>
 
 
@@ -91,6 +92,7 @@
       <% else %>
         <div class="relative border mt-6 flex items-center space-x-4 shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
           <%= pie_chart @genre_distribution,
+                        title: "Genre Distribution (#{params[:filter]&.titleize || "All Time"})",
                         library: {
                           backgroundColor: "",
                           chartArea: {width: "70%", height: "70%"},

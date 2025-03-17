@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :friendships, only: [ :create, :destroy ] do
+  resources :friendships, only: [ :new, :create, :destroy ] do
     member do
       patch :accept
       patch :decline
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   root "music_logs#index"
+  get "friends", to: "friendships#index"
   get "friends_favorites", to: "users#friends_favorites"
   get "up" => "rails/health#show", as: :rails_health_check
 end

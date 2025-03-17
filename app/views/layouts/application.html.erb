@@ -20,6 +20,15 @@
                       method: :delete,
                       data: { turbo_method: :delete },
                       class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+          <%= link_to 'Home', music_logs_path,
+                      class: "inline-flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="mt-6 flex-row space-x-6">
+          <%= link_to 'Friends', friends_path,
+                      class: "inline-flex items-center bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+        </div>
+        <div class="mt-6 flex-col space-x-6">
+          <%= render "friendships/friends_favorites" %>
         </div>
     <% else %>
     <% end %>

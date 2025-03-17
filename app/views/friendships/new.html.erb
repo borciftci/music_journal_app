@@ -1,0 +1,15 @@
+<div class="flex-col">
+  <h1 class="text-2xl font-bold mb-4">Send a Friend Request</h1>
+
+  <%= form_with url: friendships_path, method: :post do |f| %>
+    <div class="mb-4">
+      <%= f.label :email, "Enter friend's email:", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :email, name: "email", class: "border-2 border-gray-300 rounded p-2 w-full
+                                        focus:outline-none focus:border-blue-500" %>
+    </div>
+    <%= f.submit "Send Request", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+  <% end %>
+
+  <!-- Back Button -->
+  <%= link_to "Back to Friends", friends_path, class: "mt-4 text-blue-500 hover:underline block" %>
+</div>

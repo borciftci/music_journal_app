@@ -1,0 +1,24 @@
+<h1 class="text-2xl font-bold">Friends Favorites</h1>
+<div class="mt-6 space-y-3 pr-2
+            max-h-[calc(100vh-8rem)]
+            overflow-y-auto">
+  <% if current_user.friends.any? %>
+    <% if @friends_favorites&.any? %>
+      <% @friends_favorites.each do |friend| %>
+        <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+          <p><strong><%= friend.username %></strong> favorited:</p>
+          <p class="text-lg font-bold"><%= friend.favorite_song.song_name %></p>
+          <p class="text-gray-700 text-md italic">
+            <span class="text-gray-600">by</span>
+            <span class="font-semibold text-gray-900"><%= friend.favorite_song.artist %></span>
+          </p>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="text-gray-600">Your friends haven't selected a favorite song yet.</p>
+    <% end %>
+  <% else %>
+    <p class="text-gray-600">You have no friends yet. <a href="<%= friends_path %>" class="text-blue-500">Go to the Friends Page</a> to add some!</p>
+  <% end %>
+</div>
+
