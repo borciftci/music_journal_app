@@ -27,6 +27,11 @@ gem "prawn-table"
 
 gem "cssbundling-rails"
 
+gem "sidekiq"
+
+gem "sidekiq-cron"
+
+gem "redis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -62,6 +67,13 @@ group :development, :test do
   gem "rubocop"
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  # Testing
+  gem "rspec-rails"
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers", "=5.3.0"
+  gem "factory_bot_rails"
+  gem "database_cleaner-active_record"
 end
 
 group :development do

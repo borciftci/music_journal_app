@@ -16,6 +16,11 @@ Rails.application.routes.draw do
     end
   end
 
+  require "sidekiq/web"
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
   root "music_logs#index"
   get "friends", to: "friendships#index"
   get "friends_favorites", to: "users#friends_favorites"

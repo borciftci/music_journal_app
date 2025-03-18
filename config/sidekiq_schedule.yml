@@ -1,0 +1,5 @@
+weekly_log_summary:
+  cron: "0 12 * * 1"
+  class: "WeeklyLogSummaryJob"
+  queue: "mailers"
+  args: []

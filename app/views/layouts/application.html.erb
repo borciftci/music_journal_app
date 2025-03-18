@@ -11,21 +11,21 @@
       <%= javascript_include_tag "chartkick" %>
       <%= javascript_importmap_tags %>
   </head>
-  <body class="min-h-screen flex flex-row bg-blue-100">
-    <aside class="w-1/4 bg-blue-100 p-4 flex-col items-start">
+  <body class="min-h-screen flex flex-row bg-orange-100">
+    <aside class="w-1/4 bg-orange-100 p-4 flex-col items-start">
       <% if user_signed_in? %>
         <h1 class="text-2xl font-bold">Welcome, <%= current_user.username || current_user.email %>!</h1>
         <div class="mt-6 flex-row space-x-6">
           <%= link_to 'Logout', destroy_user_session_path,
                       method: :delete,
                       data: { turbo_method: :delete },
-                      class: "inline-flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+                      class: "inline-flex items-center bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" %>
           <%= link_to 'Home', music_logs_path,
-                      class: "inline-flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+                      class: "inline-flex items-center bg-cyan-600 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded" %>
         </div>
         <div class="mt-6 flex-row space-x-6">
           <%= link_to 'Friends', friends_path,
-                      class: "inline-flex items-center bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" %>
+                      class: "inline-flex items-center bg-cyan-600 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded" %>
         </div>
         <div class="mt-6 flex-col space-x-6">
           <%= render "friendships/friends_favorites" %>

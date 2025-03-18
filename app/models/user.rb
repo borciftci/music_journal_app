@@ -11,6 +11,13 @@ class User < ApplicationRecord
   has_one :favorite_song, class_name: "MusicLog", primary_key: "favorite_song_id", foreign_key: "id", required: false
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true, confirmation: true
+  validates :password_confirmation, presence: true
 
   before_save { self.username = username.downcase if username.present? }
+
+  def admin?
+    self.admin
+  end
 end

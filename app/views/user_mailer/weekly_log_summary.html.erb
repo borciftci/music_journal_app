@@ -1,0 +1,10 @@
+<h1>Hello <%= @user.username %>,</h1>
+<p>Here’s your music log summary for the past week:</p>
+
+<ul>
+  <% @music_logs.each do |log| %>
+    <li><strong><%= log.song_name %></strong> by <%= log.artist %> - <%= log.genre %></li>
+  <% end %>
+</ul>
+
+<p>Keep logging your favorite music!</p>

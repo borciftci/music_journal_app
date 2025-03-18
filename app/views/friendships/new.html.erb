@@ -7,9 +7,22 @@
       <%= f.text_field :email, name: "email", class: "border-2 border-gray-300 rounded p-2 w-full
                                         focus:outline-none focus:border-blue-500" %>
     </div>
-    <%= f.submit "Send Request", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+    <%= f.submit "Send Request", class: "bg-emerald-600 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded" %>
   <% end %>
 
   <!-- Back Button -->
-  <%= link_to "Back to Friends", friends_path, class: "mt-4 text-blue-500 hover:underline block" %>
+  <%= link_to "Back to Friends", friends_path, class: "mt-4 text-cyan-600 hover:underline block" %>
 </div>
+
+<% if flash[:alert] %>
+  <div class="bg-red-200 text-red-700 p-4 rounded-md mb-4">
+    <p><%= flash[:alert] %></p>
+  </div>
+<% end %>
+
+<% if flash[:notice] %>
+  <div class="bg-green-200 text-green-700 p-4 rounded-md mb-4">
+    <p><%= flash[:notice] %></p>
+  </div>
+<% end %>
+

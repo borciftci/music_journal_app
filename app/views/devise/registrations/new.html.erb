@@ -32,4 +32,14 @@
       <%= link_to "Already have an account? Log in", new_session_path(resource_name), class: "text-blue-500 hover:underline" %>
     </div>
   </div>
+  <% if resource.errors.any? %>
+    <div class="bg-red-200 text-red-700 p-4 rounded-md mb-4">
+      <h2 class="font-bold mb-2">Oops! Something went wrong:</h2>
+      <ul>
+        <% resource.errors.full_messages.each do |message| %>
+          <li>- <%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
