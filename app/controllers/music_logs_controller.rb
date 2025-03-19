@@ -77,19 +77,6 @@ class MusicLogsController < ApplicationController
   def export_pdf
     @music_logs = current_user.music_logs.order(date: :desc)
 
-    if params[:filter].present?
-      case params[:filter]
-      when "today"
-        @music_logs = @music_logs.where(date: Date.today)
-      when "last_week"
-        @music_logs = @music_logs.where(date: 1.week.ago.to_date..Date.today)
-      when "last_month"
-        @music_logs = @music_logs.where(date: 1.month.ago.to_date..Date.today)
-      else
-        flash[:alert] = "Invalid filter"
-      end
-    end
-
     pdf = Prawn::Document.new
     pdf.text "Music Logs", size: 24, style: :bold, align: :center
     pdf.move_down 20
@@ -114,7 +101,6 @@ class MusicLogsController < ApplicationController
               filename: "music_logs.pdf",
               type: "application/pdf",
               disposition: "attachment"
-    redirect_to music_logs_path, success: "Your music logs are being downloaded."
   end
 
 
