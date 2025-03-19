@@ -17,14 +17,14 @@ class FriendshipsController < ApplicationController
     friend = User.find_by(email: params[:email])
 
     if friend.nil?
-      redirect_to new_friendship_path, alert: "User not found"
+      redirect_to new_friendship_path, error: "User not found"
     elsif current_user.friends.include?(friend)
-      redirect_to friends_path, alert: "Already friends!"
+      redirect_to friends_path, error: "Already friends!"
     elsif Friendship.exists?(user: current_user, friend: friend, status: "pending")
-      redirect_to friends_path, alert: "Friend request already sent!"
+      redirect_to friends_path, error: "Friend request already sent!"
     else
       Friendship.create(user: current_user, friend: friend, status: :pending)
-      redirect_to friends_path, notice: "Friend request sent to #{friend.username}"
+      redirect_to friends_path, success: "Friend request sent to #{friend.username}"
     end
   end
 
@@ -34,9 +34,9 @@ class FriendshipsController < ApplicationController
     if friendship.friend == current_user
       friendship.update(status: "accepted")
       Friendship.create(user: friendship.friend, friend: friendship.user, status: "accepted")
-      redirect_to friends_path, notice: "Friend request accepted!"
+      redirect_to friends_path, success: "Friend request accepted!"
     else
-      redirect_to friends_path, alert: "Unauthorized request!"
+      redirect_to friends_path, error: "Unauthorized request!"
     end
   end
 
@@ -45,9 +45,9 @@ class FriendshipsController < ApplicationController
 
     if friendship.friend == current_user
       friendship.destroy
-      redirect_to friends_path, notice: "Friend request declined!"
+      redirect_to friends_path, success: "Friend request declined!"
     else
-      redirect_to friends_path, alert: "Unauthorized request!"
+      redirect_to friends_path, error: "Unauthorized request!"
     end
   end
 
@@ -63,6 +63,6 @@ class FriendshipsController < ApplicationController
       friendship2.destroy
     end
 
-    redirect_to friends_path, notice: "You are no longer friends."
+    redirect_to friends_path, success: "You are no longer friends with #{friendship1.friend_id.username}."
   end
 end

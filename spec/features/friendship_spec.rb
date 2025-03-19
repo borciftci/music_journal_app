@@ -11,8 +11,8 @@ RSpec.feature "Friendship System", type: :feature do
 
   scenario "User sends a friend request from the friends page" do
     visit friends_path
-    click_button "Add Friend" # Opens friend request form
-    fill_in "Email", with: user2.email
+    click_link "Add Friend" # Opens friend request form
+    fill_in "Enter friend's email:", with: user2.email
     click_button "Send Request"
 
     expect(page).to have_content "Friend request sent to user2"
@@ -20,7 +20,7 @@ RSpec.feature "Friendship System", type: :feature do
 
   scenario "User fails to send a friend request due to missing email" do
     visit friends_path
-    click_button "Add Friend"
+    click_link "Add Friend"
     click_button "Send Request" # No email entered
 
     expect(page).to have_content "User not found"

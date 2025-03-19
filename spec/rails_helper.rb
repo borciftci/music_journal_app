@@ -73,6 +73,28 @@ end
 
 require "capybara/rails"
 require "capybara/rspec"
+require "selenium-webdriver"
+
+Capybara.register_driver :chrome do |app|
+  download_directory = "#{Dir.pwd}/tmp/downloads"
+  FileUtils.mkdir_p(download_directory)
+
+  options = Selenium::WebDriver::Chrome::Options.new
+
+  prefs = {
+    "download.default_directory" => download_directory,  # Set download location
+    "download.prompt_for_download" => false,  # Disable download prompts
+    "plugins.always_open_pdf_externally" => true  # Force PDFs to download instead of opening
+  }
+
+  options.add_preference(:prefs, prefs)
+
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+end
+
+Capybara.javascript_driver = :chrome
+
+
 
 Capybara.default_driver = :selenium_chrome
 Capybara.default_max_wait_time = 5

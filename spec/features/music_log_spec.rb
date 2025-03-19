@@ -10,13 +10,14 @@ RSpec.feature "Music Log Management", type: :feature do
   scenario "User successfully creates a new music log" do
     visit new_music_log_path
 
-    fill_in "Song Name", with: "Bohemian Rhapsody"
-    fill_in "Artist", with: "Queen"
-    select "Rock", from: "Genre"
-    fill_in "Mood", with: "Happy"
-    fill_in "Notes", with: "One of the greatest songs of all time"
-    fill_in "Date", with: Date.today.strftime("%Y-%m-%d") # Ensure valid format
+    fill_in "music_log[song_name]", with: "Bohemian Rhapsody"
+    fill_in "music_log[artist]", with: "Queen"
+    select "Rock", from: "music_log[genre]"
+    fill_in "music_log[mood]", with: "Happy"
+    fill_in "music_log[notes]", with: "One of the greatest songs of all time"
+    fill_in "music_log[date]", with: Date.today.strftime("%Y-%m-%d")
     click_button "Save"
+
 
     expect(page).to have_content "Music Log was successfully created."
     expect(page).to have_content "Bohemian Rhapsody"
@@ -27,10 +28,6 @@ RSpec.feature "Music Log Management", type: :feature do
 
     click_button "Save" # Try submitting an empty form
 
-    expect(page).to have_content "Song Name can't be blank"
-    expect(page).to have_content "Artist can't be blank"
-    expect(page).to have_content "Genre can't be blank"
-    expect(page).to have_content "Mood can't be blank"
-    expect(page).to have_content "Date can't be blank"
+    expect(page).to have_content "Please fill in all required fields."
   end
 end

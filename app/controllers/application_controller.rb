@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :authenticate_user!
   before_action :set_friends_favorites
+  add_flash_types :success, :error, :info, :warning
 
   private
 

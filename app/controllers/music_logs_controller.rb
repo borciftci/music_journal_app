@@ -10,7 +10,7 @@ class MusicLogsController < ApplicationController
   # GET /music_logs
   # Lists all music logs belonging to current user in descending order
   def index
-    @music_logs = current_user.music_logs.order(date: :desc)
+    @music_logs = current_user.music_logs.order(date: :desc) || []
 
     if params[:filter].present?
       case params[:filter]
@@ -37,7 +37,7 @@ class MusicLogsController < ApplicationController
       current_user.update(favorite_song_id: @music_log.id)
       message = "Favorite song updated"
     end
-    redirect_to music_logs_path, notice: message
+    redirect_to music_logs_path, success: message
   end
 
   # GET /music_logs/:id
@@ -55,9 +55,9 @@ class MusicLogsController < ApplicationController
   def create
     @music_log = current_user.music_logs.new(music_log_params)
     if @music_log.save
-      redirect_to music_logs_path, notice: "Music Log was successfully created."
+      redirect_to music_logs_path, success: "Music Log was successfully created."
     else
-      render :index
+      redirect_to new_music_log_path, error: "Please fill in all required fields."
     end
   end
 
@@ -68,7 +68,7 @@ class MusicLogsController < ApplicationController
   # PATCH/PUT /music_logs/:id
   def update
     if @music_log.update(music_log_params)
-      redirect_to music_logs_path, notice: "Music Log was successfully updated."
+      redirect_to music_logs_path, success: "Music Log was successfully updated."
     else
       render :index
     end
@@ -113,16 +113,17 @@ class MusicLogsController < ApplicationController
     send_data pdf.render,
               filename: "music_logs.pdf",
               type: "application/pdf",
-              disposition: "inline"
+              disposition: "attachment"
+    redirect_to music_logs_path, success: "Your music logs are being downloaded."
   end
 
 
   # DELETE /music_logs/:id
   def destroy
     if @music_log.destroy
-      redirect_to music_logs_path, notice: "Music Log was successfully destroyed."
+      redirect_to music_logs_path, success: "Music Log was successfully destroyed."
     else
-      redirect_to music_logs_path, alert: "Music Log could not be deleted."
+      redirect_to music_logs_path, error: "Music Log could not be deleted."
     end
   end
 
