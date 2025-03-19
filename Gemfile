@@ -71,7 +71,7 @@ group :development, :test do
   gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
-  gem "webdrivers", "=5.3.0"
+  gem "webdrivers", "=5.3.1"
   gem "factory_bot_rails"
   gem "database_cleaner-active_record"
 end
