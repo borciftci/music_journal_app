@@ -85,6 +85,5 @@ RSpec.feature "Music Log Management", type: :feature do
     accept_alert
 
     expect(page).to have_content "Music Log was successfully destroyed."
-
   end
 end

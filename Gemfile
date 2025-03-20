@@ -74,6 +74,7 @@ group :development, :test do
   gem "webdrivers", "=5.3.1"
   gem "factory_bot_rails"
   gem "database_cleaner-active_record"
+  gem "simplecov", "~> 0.22.0"
 end
 
 group :development do
@@ -85,5 +86,3 @@ end
 gem "tailwindcss-ruby", "~> 4.0"
 
 gem "chartkick", "~> 5.1"
-
-gem "simplecov", "~> 0.22.0", :group => :test
