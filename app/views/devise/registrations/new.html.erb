@@ -2,7 +2,7 @@
   <h1 class="text-4xl font-bold text-gray-900 mb-6">Welcome to Music Journal</h1>
   <p class="text-gray-600 mb-6 text-lg text-center">Log your favorite music and track trends!</p>
 
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+  <div class="shadow-lg rounded-lg p-8 w-full max-w-md">
     <h1 class="text-2xl font-bold text-center mb-6">Sign Up</h1>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <div class="mb-4">
@@ -25,7 +25,7 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full p-3 border rounded-lg shadow-sm" %>
       </div>
 
-      <%= f.submit "Sign Up", class: "w-full bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow-md text-lg cursor-pointer" %>
+      <%= f.submit "Sign Up", class: "w-full bg-emerald-600 hover:bg-emerald-900 text-white font-bold py-3 px-6 rounded-lg shadow-md text-lg cursor-pointer" %>
     <% end %>
 
     <div class="text-center mt-4">

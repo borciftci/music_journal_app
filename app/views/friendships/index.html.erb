@@ -26,19 +26,22 @@
   <!-- Friends List -->
   <div class="mt-6 flex-col space-x-6">
     <h2 class="text-lg font-bold">Your Friends</h2>
-    <% if current_user.friends.any? %>
-      <% current_user.friends.each do |friend| %>
-        <div class="relative flex border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
-          <p class="text-xl inline-flex items-center font-bold py-2 px-4 rounded"><%= friend.username %></p>
-          <%= link_to "Remove Friend", friendship_path(friend),
-                      method: :delete,
-                      data: { turbo_method: :delete },
-                      class: "inline-flex items-center bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" %>
-        </div>
+    <div class="mt-6 space-y-3">
+      <% if current_user.friends.any? %>
+        <% current_user.friends.each do |friend| %>
+          <div class="relative border shadow-md p-4 bg-gray-100 border-gray-200 rounded-lg">
+            <p class="text-xl inline-flex items-center font-bold py-2 px-4 rounded"><%= friend.username %></p>
+            <%= link_to "Remove Friend", friendship_path(friend),
+                        method: :delete,
+                        data: { turbo_method: :delete },
+                        class: "inline-flex items-center bg-red-400 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-gray-600">You have no friends yet.</p>
       <% end %>
-    <% else %>
-      <p class="text-gray-600">You have no friends yet.</p>
-    <% end %>
+    </div>
+
   </div>
 </div>
 

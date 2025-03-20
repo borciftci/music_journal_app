@@ -29,14 +29,21 @@ class MusicLogsController < ApplicationController
   end
 
   def favorite
-    @music_log = current_user.music_logs.find(params[:id])
-    if current_user.favorite_song_id == @music_log.id
-      current_user.update(favorite_song_id: nil)
-      message = "Favorite song removed"
-    else
-      current_user.update(favorite_song_id: @music_log.id)
-      message = "Favorite song updated"
+    @music_log = current_user.music_logs.find_by(id: params[:id])
+
+    unless @music_log
+      return redirect_to music_logs_path, error: "Music Log not found"
     end
+
+    new_favorite_id = (current_user.favorite_song_id == @music_log.id ? nil : @music_log.id)
+
+    if current_user.update_column(:favorite_song_id, new_favorite_id)
+      message = new_favorite_id.nil? ? "Favorite song removed" : "Favorite song updated"
+    else
+      Rails.logger.error "Failed to update favorite song: #{current_user.errors.full_messages.join(", ")}"
+      message = "Something went wrong. Please try again."
+    end
+
     redirect_to music_logs_path, success: message
   end
 
@@ -76,9 +83,11 @@ class MusicLogsController < ApplicationController
 
   def export_pdf
     @music_logs = current_user.music_logs.order(date: :desc)
+    timestamp = Time.current.strftime("%d-%m-%Y_%H:%M:%S")
 
     pdf = Prawn::Document.new
-    pdf.text "Music Logs", size: 24, style: :bold, align: :center
+    pdf_title = "Music Logs #{timestamp}"
+    pdf.text pdf_title, size: 24, style: :bold, align: :center
     pdf.move_down 20
 
     # Define table headers
@@ -97,8 +106,10 @@ class MusicLogsController < ApplicationController
               cell_style: { border_width: 1, padding: 8, size: 12, align: :left }
     )
 
+    filename = "music_logs_#{timestamp}.pdf"
+
     send_data pdf.render,
-              filename: "music_logs.pdf",
+              filename: filename,
               type: "application/pdf",
               disposition: "attachment"
   end
