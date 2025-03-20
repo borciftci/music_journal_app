@@ -45,4 +45,20 @@ RSpec.feature "Friendship System", type: :feature do
 
     expect(page).to have_content "Friend request declined!"
   end
+
+  scenario "User removes a friend" do
+    Friendship.create!(user: user1, friend: user2, status: "pending")
+
+    login_as(user2, scope: :user)
+    visit friends_path
+    click_button "Accept"
+
+    expect(page).to have_content "Friend request accepted!"
+
+    visit friends_path
+    within(".friend", text: "user1") do
+      find(".remove-friend-button").click
+    end
+    expect(page).to have_content "Friend removed!"
+  end
 end

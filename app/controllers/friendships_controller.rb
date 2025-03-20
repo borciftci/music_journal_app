@@ -63,6 +63,6 @@ class FriendshipsController < ApplicationController
       friendship2.destroy
     end
 
-    redirect_to friends_path, success: "You are no longer friends with #{friendship1.friend_id.username}."
+    redirect_to friends_path, success: "Friend removed!"
   end
 end
